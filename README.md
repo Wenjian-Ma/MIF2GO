@@ -19,4 +19,17 @@ numpy == 1.21.5
 
 Data preparation (Password:1234)
 ---
-The relevant data can be available at the [Link](https://pan.baidu.com/s/11xFJtqn0ddIl4GUdrm3HvQ?pwd=1234).
+1. The relevant data (~1.5G) can be available at the [Link](https://pan.baidu.com/s/11xFJtqn0ddIl4GUdrm3HvQ?pwd=1234).
+
+2. Unzip the above file to the corresponding directory `./data/`.
+
+3. If you want to train or test the model on different datasets, please modify the parameter settings in the code.
+
+Test
+---
+
+`python test.py` used to reproduct the performence recorded in the paper.
+
+Train
+---
+`python main.py`
