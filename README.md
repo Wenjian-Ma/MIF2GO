@@ -5,11 +5,11 @@ Code for paper "MIF2GO: Annotating Protein Functions via Fusing Multiple Biologi
 Dependencies
 ---
 
-python == 3.7.13
+python == 3.7.16
 
-pytorch == 1.11.0
+pytorch == 1.13.1
 
-PyG (torch-geometric) == 2.0.4
+PyG (torch-geometric) == 2.3.1
 
 sklearn == 1.0.2
 
