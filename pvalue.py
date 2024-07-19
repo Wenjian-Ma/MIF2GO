@@ -35,6 +35,23 @@ def calculate_fmax(preds, labels):
     return f_max
 
 
+ESM_pred_MF = np.load('./data/Human/p-value/ESM-MF_pred.npy')#>0.5)+0.0
+ESM_label_MF = np.load('./data/Human/p-value/ESM-MF_label.npy')
+ESM_error_MF = np.sum((ESM_pred_MF - ESM_label_MF)**2 , axis=1)
+ESM_Fmax_MF = np.array([calculate_fmax(ESM_pred_MF[i,:],ESM_label_MF[i,:]) for i in range(ESM_pred_MF.shape[0])])
+
+ESM_pred_BP = np.load('./data/Human/p-value/ESM-BP_pred.npy')#>0.5)+0.0
+ESM_label_BP = np.load('./data/Human/p-value/ESM-BP_label.npy')
+ESM_error_BP = np.sum((ESM_pred_BP - ESM_label_BP)**2 , axis=1)
+ESM_Fmax_BP = np.array([calculate_fmax(ESM_pred_BP[i,:],ESM_label_BP[i,:]) for i in range(ESM_pred_BP.shape[0])])
+
+ESM_pred_CC = np.load('./data/Human/p-value/ESM-CC_pred.npy')#>0.5)+0.0
+ESM_label_CC = np.load('./data/Human/p-value/ESM-CC_label.npy')
+ESM_error_CC = np.sum((ESM_pred_CC - ESM_label_CC)**2 , axis=1)
+ESM_Fmax_CC = np.array([calculate_fmax(ESM_pred_CC[i,:],ESM_label_CC[i,:]) for i in range(ESM_pred_CC.shape[0])])
+
+
+
 CFAGO_pred_MF = np.load('./data/Human/p-value/CFAGO-MF_pred.npy')#>0.5)+0.0
 CFAGO_label_MF = np.load('./data/Human/p-value/CFAGO-MF_label.npy')
 CFAGO_error_MF = np.sum((CFAGO_pred_MF - CFAGO_label_MF)**2 , axis=1)
@@ -196,9 +213,15 @@ MultiPredGO_p_value_BP = ttest_ind(MIF2GO_Fmax_BP, MultiPredGO_Fmax_BP,equal_var
 MultiPredGO_p_value_CC = ttest_ind(MIF2GO_Fmax_CC, MultiPredGO_Fmax_CC,equal_var=levene(MIF2GO_Fmax_CC, MultiPredGO_Fmax_CC).pvalue>0.05).pvalue
 
 
+
 CFAGO_p_value_MF = ttest_ind(MIF2GO_Fmax_MF, CFAGO_Fmax_MF,equal_var=levene(MIF2GO_Fmax_MF, CFAGO_Fmax_MF).pvalue>0.05).pvalue
 CFAGO_p_value_BP = ttest_ind(MIF2GO_Fmax_BP, CFAGO_Fmax_BP,equal_var=levene(MIF2GO_Fmax_BP, CFAGO_Fmax_BP).pvalue>0.05).pvalue
 CFAGO_p_value_CC = ttest_ind(MIF2GO_Fmax_CC, CFAGO_Fmax_CC,equal_var=levene(MIF2GO_Fmax_CC, CFAGO_Fmax_CC).pvalue>0.05).pvalue
+
+
+ESM_p_value_MF = ttest_ind(MIF2GO_Fmax_MF, ESM_Fmax_MF,equal_var=levene(MIF2GO_Fmax_MF, ESM_Fmax_MF).pvalue>0.05).pvalue
+ESM_p_value_BP = ttest_ind(MIF2GO_Fmax_BP, ESM_Fmax_BP,equal_var=levene(MIF2GO_Fmax_BP, ESM_Fmax_BP).pvalue>0.05).pvalue
+ESM_p_value_CC = ttest_ind(MIF2GO_Fmax_CC, ESM_Fmax_CC,equal_var=levene(MIF2GO_Fmax_CC, ESM_Fmax_CC).pvalue>0.05).pvalue
 
 
 print()
