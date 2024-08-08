@@ -106,3 +106,71 @@ def load_data(graph_type, uniprot, args):
     adj = sp.csr_matrix(adj)
 
     return adj, features
+
+
+def load_data_CAFA(graph_type, uniprot, args,aspect):
+    print('loading data...')
+
+    def reshape(features):
+        return np.hstack(features).reshape((len(features), len(features[0])))
+
+    # get feature representations
+    features_loc = reshape(uniprot['location'].values)
+    features_domain = reshape(uniprot['domain'].values)
+    features_pathway = reshape(uniprot['pathway'].values)
+    features_interpro = reshape(uniprot['interpro'].values)
+    features_ppi_node2vec = reshape(uniprot['ppi_node2vec'].values)
+    features_ssn_node2vec = reshape(uniprot['ssn_node2vec'].values)
+
+    print('generating features...')
+
+    if graph_type == "ppi":
+        attribute = args.ppi_attributes
+    elif graph_type == "sequence_similarity":
+        attribute = args.simi_attributes
+
+    if attribute == 0:
+        features = np.concatenate((features_loc,features_domain,features_pathway),axis=1)
+        print("Using location, domain, and pathway features")
+    elif attribute == 1:
+        features = np.concatenate((features_loc,features_interpro,features_pathway),axis=1)
+        print("Using location, domain, pathway, and interpro features")
+    elif attribute == 2:
+        features = features_loc#features_loc,features_domain,features_pathway,features_interpro,
+        print("Using all features")
+    # features = sp.csr_matrix(features)
+
+    print('loading graph...')
+    if graph_type == "sequence_similarity":
+        adj = np.zeros((uniprot.shape[0],uniprot.shape[0]))
+        filename = os.path.join(args.data_path,aspect+"_phn.npy")
+        adj_ssn = np.load(filename)#
+        adj[adj_ssn <= args.thr_evalue] = 1
+        if (adj.T == adj).all():
+            pass
+        else:
+            adj = adj + adj.T
+            adj[adj > 1] = 1
+    elif graph_type == "ppi":
+        filename = os.path.join(args.data_path, aspect+ "_ppi.npy")
+        adj = np.load(filename)/1000
+        adj[adj<args.thr_combined] = 0
+
+    np.fill_diagonal(adj,0)
+
+    adj = sp.csr_matrix(adj)
+    features = sp.csr_matrix(features)
+
+    return adj, features
+
+
+def load_labels_CAFA(uniprot,num_labels):
+    print('loading labels...')
+    # load labels (GO)
+    labels = np.zeros((uniprot.shape[0],num_labels))
+    for idx,i in enumerate(list(uniprot.columns)[-num_labels:]):
+        labels[:,idx]  = uniprot[i]
+
+
+
+    return labels
