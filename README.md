@@ -53,10 +53,3 @@ For CAFA dataset:
 
 `python main_CAFA3.py`
 
-P-value calculation
----
-1. The relevant data (~1.5G) can be available at the [Link](https://pan.baidu.com/s/1HeTARs1y-VmJGCiGF17exw?pwd=1234).
-
-2. Unzip the above file to the corresponding directory `./data/Human/`.
-
-3. `python pvalue.py`
