@@ -53,3 +53,23 @@ For CAFA dataset:
 
 `python main_CAFA3.py`
 
+
+Cite our work
+---
+if you use the conclusion, code, or data in our work, please cite:
+```
+﻿@Article{Ma2024,
+author={Ma, Wenjian and Bi, Xiangpeng and Jiang, Huasen and Wei, Zhiqiang and Zhang, Shugang},
+title={Annotating protein functions via fusing multiple biological modalities},
+journal={Communications Biology},
+year={2024},
+month={Dec},
+day={27},
+volume={7},
+number={1},
+pages={1705},
+issn={2399-3642},
+doi={10.1038/s42003-024-07411-y},
+url={https://doi.org/10.1038/s42003-024-07411-y}
+}
+
